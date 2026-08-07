@@ -20,6 +20,12 @@ export const postType = defineType({
       hidden: ({document}) => !document?.title,
     }),
     defineField({
+      name: 'category',
+      type: 'array',
+      of: [{type: 'reference', to: {type: 'category'}}],
+      validation: (rule) => rule.required(),
+    }),
+    defineField({
       name: 'publishedAt',
       type: 'datetime',
       initialValue: () => new Date().toISOString(),
