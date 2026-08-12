@@ -23,5 +23,20 @@ export default defineType({
       title: 'Description',
       type: 'text',
     }),
+    defineField({
+      name: 'pinnedPost',
+      title: 'Pinned Post',
+      type: 'reference',
+      to: [{ type: 'post' }],
+      options: {
+        filter: ({document}) => {
+          const categoryId = document._id.replace(/^drafts\./, '')
+          return {
+            filter: 'references($categoryId)',
+            params: {categoryId},
+          }
+        },
+      },
+    }),
   ],
 })
